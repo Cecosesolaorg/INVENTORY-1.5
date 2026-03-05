@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Pasillo 4-GALLETAS | Cecosesola</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="pasillo.css">
+</head>
+
+<body class="pasillo-body">
+    <div class="background-glow"></div>
+
+    <div class="pasillo-wrapper">
+        <header class="pasillo-header">
+            <div class="header-left">
+                <div class="header-info">
+                    <span class="company-tag">CECOSESOLA J085030140</span>
+                    <span class="date-tag" id="current-date">FECHA: --/--/----</span>
+                </div>
+                <div class="header-main">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <h1 class="aisle-title">★-Pasillo 4-GALLETAS -★</h1>
+                        <div class="counted-badge">
+                            <span id="counted-total">0</span> PRODUCTOS
+                        </div>
+                    </div>
+                    <p class="brand-name">FERIA DEL ESTE</p>
+                </div>
+            </div>
+            <div class="teams-container">
+                <div class="team-card team-1">
+                    <header>EQUIPO DE TRABAJO</header>
+                    <div class="resp">RESPONSABLE: <strong id="team1-resp1">CARGANDO...</strong></div>
+                    <div class="resp">COMPAÑERO: <strong id="team1-resp2">CARGANDO...</strong></div>
+                </div>
+            </div>
+        </header>
+
+        <section class="actions-bar">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Escribe para buscar producto..." id="productSearch">
+            </div>
+            <!-- Activador de Lista Completa -->
+            <div class="toggle-group">
+                <span class="toggle-label">Lista Completa</span>
+                <label class="switch">
+                    <input type="checkbox" id="fullListToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="btn-group">
+                <button class="icon-btn trash" id="clearBtn"><span class="icon">🗑️</span></button>
+                <button class="icon-btn blue" id="helperBtn"><span class="icon">👥</span></button>
+                <button class="action-btn purple" id="addProductBtn">+ Agregar</button>
+                <button class="action-btn green" id="downloadBtn">💾 Descargar</button>
+            </div>
+        </section>
+
+        <main class="inventory-table-container">
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th class="col-product">PRODUCTO / CHECKLIST</th>
+                        <th class="col-qty">CANTIDAD</th>
+                        <th class="col-diff">DIF</th>
+                    </tr>
+                </thead>
+                <tbody id="inventory-body">
+                    <!-- Products will be injected here -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    
+
+    <!-- Reference Image Style Calculator -->
+    <div id="calcModal" class="modal">
+        <div class="modal-content premium-calc">
+            <header class="calc-header">
+                <div class="calc-info">
+                    <span class="calc-menu">☰</span>
+                    <span id="calc-product-name">PRODUCTO</span>
+                </div>
+                <div class="calc-display-area">
+                    <div class="saved-hint">Guardado: <span id="current-saved-val">0</span></div>
+                    <div id="calcResult" class="calc-main-display">0</div>
+                </div>
+                <div id="calc-history-panel" class="calc-history-panel" style="display:none;">
+                    <div class="history-title">📋 HISTORIAL</div>
+                    <div id="calc-history-content" class="history-content">Sin historial</div>
+                </div>
+            </header>
+
+            <div class="p-calc-grid-new">
+                <!-- Modifiers -->
+                <button class="p-btn-new spec" data-op="%">%</button>
+                <button class="p-btn-new spec" data-op="CE">CE</button>
+                <button class="p-btn-new spec" data-op="C">C</button>
+                <button class="p-btn-new spec" data-op="BS">⌫</button>
+
+                <!-- Functions -->
+                <button class="p-btn-new spec" data-op="1/x">¹/ₓ</button>
+                <button class="p-btn-new spec" data-op="x2">x²</button>
+                <button class="p-btn-new spec" data-op="sqrt">√x</button>
+                <button class="p-btn-new op" data-op="/">÷</button>
+
+                <!-- Num Row 1 -->
+                <button class="p-btn-new num">7</button>
+                <button class="p-btn-new num">8</button>
+                <button class="p-btn-new num">9</button>
+                <button class="p-btn-new op" data-op="*">×</button>
+
+                <!-- Num Row 2 -->
+                <button class="p-btn-new num">4</button>
+                <button class="p-btn-new num">5</button>
+                <button class="p-btn-new num">6</button>
+                <button class="p-btn-new op" data-op="-">−</button>
+
+                <!-- Num Row 3 -->
+                <button class="p-btn-new num">1</button>
+                <button class="p-btn-new num">2</button>
+                <button class="p-btn-new num">3</button>
+                <button class="p-btn-new op" data-op="+">+</button>
+
+                <!-- Special Row -->
+                <button class="p-btn-new spec" data-op="ANS">ANT</button>
+                <button class="p-btn-new num">0</button>
+                <button class="p-btn-new num">.</button>
+                <button class="p-btn-new equal-btn" id="btnSumarCant">=</button>
+            </div>
+
+            <div class="calc-footer">
+                <button class="btn-cancel" onclick="closeCalculator()">CANCELAR</button>
+                <button class="btn-save" onclick="saveCalculation()">GUARDAR</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script src="../../src/firebase-config.js"></script>
+    <script src="../../src/calculator.js"></script>
+    <script src="pasillo.js"></script>
+
+</body>
+
+</html>
